@@ -1,0 +1,29 @@
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Actions } from 'react-native-router-flux';
+import { Text, View, Image, StatusBar, KeyboardAvoidingView } from 'react-native';
+import { Card, CardSection, Input, Button, Spinner, SmallButton} from '../components/common';
+import { TouchableOpacity } from "react-native";
+import Logout from '../components/Logout';
+import Back from '../components/Back';
+import {Logo, Title, Slogan} from '../components/design';
+
+
+class SettingsPage extends Component {
+  render() {
+    return (
+      <View style={{flex: 1}}>
+      <Logout />
+      <Back />
+      <Card>
+      <Text>
+       SettingsPage
+      </Text>
+      </Card>
+      </View>
+    );
+  }
+  }
+
+
+  export default SettingsPage;
