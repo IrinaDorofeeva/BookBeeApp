@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, ScrollView, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
-import { CardSection, Input, Card, Button } from './common';
+import { CardSection, Input, ProfileCard, ButtonProfile, Card } from './common';
 import { profileUpdate, profileSet } from '../actions';
 import ProfileForm from '../components/ProfileForm';
 import { Actions } from 'react-native-router-flux';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 class ProfileSetForm extends Component {
 
@@ -16,19 +17,24 @@ class ProfileSetForm extends Component {
 
   render() {
     return (
-      <Card>
-      <CardSection>
-      <Text>
-      Please, fill out your profile.
-      </Text>
-      </CardSection>
+
+<ProfileCard>
+
+
+
       <ProfileForm {...this.props} />
-      <CardSection>
-      <Button onPress={this.onButtonPress.bind(this)}>
+
+
+      <CardSection style={{borderBottomWidth: 0, marginTop: 10, marginLeft: 25, marginRight: 25, flex: 1,
+      justifyContent:'flex-end' }}>
+      <ButtonProfile onPress={this.onButtonPress.bind(this)}>
       Save
-      </Button>
+      </ButtonProfile>
       </CardSection>
-      </Card>
+
+      </ProfileCard>
+
+
     );
   }
 }

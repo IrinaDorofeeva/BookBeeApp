@@ -12,7 +12,7 @@ class EditProfile extends Component {
   };
   render() {
     return (
-      <View style={{  width: (Dimensions.get('window').width)/6  }}>
+      <View style={{  width: (Dimensions.get('window').width)/9  }}>
       <TopButton onPress={this.onButtonPress.bind(this)}>
       Edit
       </TopButton>

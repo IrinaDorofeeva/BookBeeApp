@@ -13,11 +13,12 @@ import {profileFetch, profileUpdate} from '../actions';
 import ProfileRender from '../components/ProfileRender';
 import ProfileSetForm from '../components/ProfileSetForm';
 
+
 class ProfileEditScreen extends Component {
 
   componentWillMount(){
   this.props.profileFetch();
-  this.props.profileUpdate({prop: 'name', value: this.props.profile.name });
+  //this.props.profileUpdate({prop: 'name', value: this.props.profile.name });
 
 
 }
