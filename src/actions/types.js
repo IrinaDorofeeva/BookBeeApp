@@ -15,5 +15,11 @@ export const PASSWORD_MISMATCH = 'password_mismatch';
 
 
 export const PROFILE_SET ='profile_set';
+export const PROFILE_LOADING ='profile_loading';
 export const PROFILE_UPDATE ='profile_update';
 export const PROFILE_FETCH_SUCCESS='profile_fetch_success';
+
+export const PICTURE_SET ='picture_set';
+export const PICTURE_FAIL ='picture_fail';
+export const PICTURE_LOADING ='picture_loading';
+export const PICTURE_FETCH_SUCCESS='picture_fetch_success';

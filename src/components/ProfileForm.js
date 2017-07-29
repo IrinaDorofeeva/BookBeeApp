@@ -9,11 +9,7 @@ import {Dimensions } from 'react-native';
 class ProfileForm extends Component {
   render() {
     return (
-
-
       <ProfileCard>
-
-      <View style={{  height: (Dimensions.get('window').width)/7.3  }}></View>
       <ProfileCardSection>
       <InputProfile
       label="Name:"
@@ -28,9 +24,9 @@ class ProfileForm extends Component {
       <InputProfile
       label="Book:"
       placeholder="What book are you reading now?"
-      value={this.props.name}
+      value={this.props.book}
       maxLength = {50}
-      onChangeText={value => this.props.profileUpdate({ prop: 'name', value })}
+      onChangeText={value => this.props.profileUpdate({ prop: 'book', value })}
       />
       </ProfileCardSection>
 
@@ -38,9 +34,9 @@ class ProfileForm extends Component {
       <InputProfile
       label="Author:"
       placeholder="Who wrote that book?"
-      value={this.props.name}
+      value={this.props.author}
       maxLength = {50}
-      onChangeText={value => this.props.profileUpdate({ prop: 'name', value })}
+      onChangeText={value => this.props.profileUpdate({ prop: 'author', value })}
       />
       </ProfileCardSection>
 
@@ -48,8 +44,8 @@ class ProfileForm extends Component {
       <InputProfile
       label="Genre:"
       placeholder="What is the genre of the book?"
-      value={this.props.name}
-      onChangeText={value => this.props.profileUpdate({ prop: 'name', value })}
+      value={this.props.genre}
+      onChangeText={value => this.props.profileUpdate({ prop: 'genre', value })}
       />
       </ProfileCardSection>
       <View style={{  height: (Dimensions.get('window').width)/5  }}>
@@ -58,19 +54,18 @@ class ProfileForm extends Component {
       label="About:"
       maxLength = {100}
       placeholder="What are your thoughts on the book?"
-      value={this.props.name}
-      onChangeText={value => this.props.profileUpdate({ prop: 'name', value })}
+      value={this.props.about}
+      onChangeText={value => this.props.profileUpdate({ prop: 'about', value })}
       />
       </ProfileCardSection>
       </View>
       </ProfileCard>
-
     );
   }
 }
 
 const mapStateToProps = (state) => {
-const { name } = state.profileForm;
-return { name };
+const { name, book, author, genre, about } = state.profileForm;
+return { name, book, author, genre, about };
 };
 export default connect(mapStateToProps, { profileUpdate })(ProfileForm);

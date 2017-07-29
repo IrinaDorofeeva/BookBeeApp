@@ -1,11 +1,16 @@
 import {
   PROFILE_UPDATE,
-  PROFILE_SET
+  PROFILE_SET,
+  PROFILE_EDIT
 
 } from '../actions/types';
 
 const INITIAL_STATE = {
   name: '',
+  book: '',
+  author: '',
+  genre: '',
+  about: ''
 };
 
 export default (state = INITIAL_STATE, action) => {

@@ -1,6 +1,7 @@
 package com.book_bee_app;
 
 import com.facebook.react.ReactActivity;
+import com.imagepicker.ImagePickerPackage;
 
 public class MainActivity extends ReactActivity {
 

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {AsyncStorage} from 'react-native';
+import _ from 'lodash';
 import firebase from 'firebase';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
@@ -12,32 +13,24 @@ import {Dimensions } from 'react-native';
 import {profileFetch, profileUpdate} from '../actions';
 import ProfileRender from '../components/ProfileRender';
 import ProfileSetForm from '../components/ProfileSetForm';
-
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 class ProfileEditScreen extends Component {
 
-  componentWillMount(){
-  this.props.profileFetch();
-  //this.props.profileUpdate({prop: 'name', value: this.props.profile.name });
-
-
-}
+  componentWillMount() {
+      _.each(this.props.profile, (value, prop) => {
+        this.props.profileUpdate({ prop, value });
+      });
+    }
 
   render() {
     return (
-      <View style ={{ flex: 1, flexDirection: 'column', justifyContent: 'center'}}>
-      <Header
-        leftComponent={<BackProfile />}
-        centerComponent={{ text: 'EDIT PROFILE', style: { color: '#fff', fontSize: 20,
-        fontWeight: '500' } }}
-        rightComponent={<View style={{  width: (Dimensions.get('window').width)/6  }}/>}
-        outerContainerStyles={{ backgroundColor: '#e0a64b' }}
-      />
-
-      <Text> Edit Profile Screen</Text>
+      <KeyboardAwareScrollView style={{backgroundColor: '#fff', flex: 1}} resetScrollToCoords={{ x: 0, y: 0 }}
+      scrollEnabled={true} automaticallyAdjustContentInsets={false}>
+      <View>
       <ProfileSetForm />
-    </View>
-
+      </View>
+     </KeyboardAwareScrollView>
 
     );
   }

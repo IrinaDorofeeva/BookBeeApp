@@ -3,7 +3,8 @@ import { Actions } from 'react-native-router-flux';
 import {
   PROFILE_UPDATE,
   PROFILE_SET,
-  PROFILE_FETCH_SUCCESS
+  PROFILE_FETCH_SUCCESS,
+  PROFILE_LOADING
 } from './types';
 
 export const profileUpdate = ({ prop, value }) => {
@@ -13,15 +14,17 @@ export const profileUpdate = ({ prop, value }) => {
   };
 };
 
-export const profileSet = ({ name}) => {
+
+
+export const profileSet = ({ name, book, author, genre, about }) => {
   const { currentUser } = firebase.auth();
 
-  return () => {
+  return (dispatch) => {
     firebase.database().ref(`/users/${currentUser.uid}/profile`)
-    .set({ name })
+    .set({ name, book, author, genre, about })
     .then(() => {
       dispatch({ type: PROFILE_SET });
-      //Actions.profile({ type: 'reset' });
+      Actions.profile({ type: 'reset' });
     });
   };
 };
@@ -29,9 +32,16 @@ export const profileSet = ({ name}) => {
 export const profileFetch = () => {
   const { currentUser } = firebase.auth();
   return (dispatch) => {
+    dispatch({ type: PROFILE_LOADING });
     firebase.database().ref(`/users/${currentUser.uid}/profile`)
     .on('value', snapshot => {
       dispatch({ type: PROFILE_FETCH_SUCCESS, payload: snapshot.val() });
+if (!snapshot.exists()){
+  Actions.profilecreate();
+}
+else {
+  Actions.profile();
+}
     });
   };
 };

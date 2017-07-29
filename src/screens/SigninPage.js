@@ -8,15 +8,20 @@ import { TouchableOpacity } from "react-native";
 import { Actions } from 'react-native-router-flux';
 import LoginForm from '../components/LoginForm';
 import { Logo, Title, Slogan } from '../components/design';
-import { emptyAuth } from '../actions';
+import { emptyAuth, profileFetch } from '../actions';
+import store from '../store';
 
 
 class SigninPage extends Component {
 
-  componentWillMount () {
+
+  componentDidMount () {
     firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
-        Actions.first();
+      Actions.load();
+      }
+      else{
+      Actions.login();
       }
     });
   }
@@ -55,4 +60,4 @@ class SigninPage extends Component {
 }
 }
 
-export default connect(null, { emptyAuth })(SigninPage);
+export default connect(null, { emptyAuth, profileFetch })(SigninPage);

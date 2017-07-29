@@ -13,31 +13,11 @@ import {Header} from 'react-native-elements'
 import {profileFetch} from '../actions';
 import ProfileRender from '../components/ProfileRender';
 import ProfileSetForm from '../components/ProfileSetForm';
-import StatusBarBackground  from '../components/StatusBarBackground';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-
-
-
+import store from '../store';
 
 class ProfileScreen extends Component {
 
-  componentWillMount(){
-  this.props.profileFetch();
-    console.log(this.props.profile);
-}
-
-
-renderContent(){
-    if (this.props.profile){
-      return (<ProfileSetForm />)
-    }
-    else{
-      return (
-        <ProfileSetForm />
-      )
-    }
-
-}
 
   render() {
     return (
@@ -45,11 +25,9 @@ renderContent(){
       <KeyboardAwareScrollView style={{backgroundColor: '#fff', flex: 1}} resetScrollToCoords={{ x: 0, y: 0 }}
       scrollEnabled={true} automaticallyAdjustContentInsets={false}>
 
-      <View style={{marginTop : 40}}>
-      {this.renderContent()}
+      <View>
+      <ProfileRender />
       </View>
-
-
     </KeyboardAwareScrollView>
 
 

@@ -68,8 +68,7 @@ export const signupUser = ({ email, password, repassword }) => {
     }
     else{
         dispatch({ type: PASSWORD_MISMATCH });
-        console.log(password);
-        console.log(repassword);
+      
       }
       };
   };
