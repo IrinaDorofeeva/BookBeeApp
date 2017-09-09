@@ -21,7 +21,6 @@ class ProfileSetForm extends Component {
     return (
 
       <ProfileCard>
-
       <ProfileCardSection style ={{borderBottomWidth: 0}}>
       <View style={{  flex: 1,
       justifyContent: 'center',

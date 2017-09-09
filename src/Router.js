@@ -89,7 +89,13 @@ render(){
               source={require('./components/images/GlobeShape.png')}
               style={ {width: 30, height : 30} }
             />)} >
-          <Scene key="secondscreen" component={SecondPage} hideNavBar={true} />
+          <Scene key="secondscreen" component={SecondPage} hideNavBar={false}
+          titleStyle={{color: '#fff', fontSize: 20,
+          fontWeight: '600', paddingBottom: 2}}
+          leftTitle="Logout"
+          leftButtonTextStyle={{color: '#f0d6ad',fontSize: 18, fontWeight: '600'}}
+          onLeft={()=>{this.props.logout()}}
+          title="Readers on Map" navigationBarStyle={{backgroundColor: '#e0a64b'}} />
           </Scene>
 
           <Scene key="third"  title="search" icon={()=>(<Image

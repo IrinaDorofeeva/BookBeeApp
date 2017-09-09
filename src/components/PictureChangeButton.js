@@ -51,7 +51,6 @@ const uploadImage = (uri, mime = 'application/octet-stream') => {
 
 
 class PictureChangeButton extends Component {
-
   _pickImage() {
     this.props.pictureLoading();
     ImagePicker.launchImageLibrary({}, response  => {
@@ -63,15 +62,12 @@ class PictureChangeButton extends Component {
         .catch()
     })
   }
-
-
-
   render() {
     return (
       <View style={ styles.container }>
         <TouchableOpacity onPress={ () => {this._pickImage()} }>
           <Text style={ styles.upload }>
-           Upload Picture
+           Change Picture
           </Text>
         </TouchableOpacity>
       </View>
@@ -84,7 +80,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#fff',
   },
   image: {
     height: 200,
@@ -94,11 +90,13 @@ const styles = StyleSheet.create({
   },
   upload: {
     textAlign: 'center',
-    color: '#333333',
-    padding: 10,
-    marginBottom: 5,
+    color: '#dfa553',
+    padding: 5,
+    marginTop: 3,
+    marginBottom: -13,
     borderWidth: 1,
-    borderColor: 'gray'
+    borderRadius: 14,
+    borderColor: '#dfa553'
   },
 })
 const mapStateToProps = (state) => {
