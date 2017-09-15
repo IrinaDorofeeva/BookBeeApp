@@ -68,7 +68,7 @@ export const signupUser = ({ email, password, repassword }) => {
     }
     else{
         dispatch({ type: PASSWORD_MISMATCH });
-      
+
       }
       };
   };
@@ -80,7 +80,7 @@ const signupUserSuccess = (dispatch, user) => {
     type: SIGNUP_USER_SUCCESS,
     payload: user
   });
-  Actions.first();
+  Actions.profilecreate();
 };
 
 

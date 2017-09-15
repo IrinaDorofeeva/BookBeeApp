@@ -26,7 +26,7 @@ class PictureRender extends Component {
                  switch (this.props.uploaded) {
                      case true:
                      return (
-                       <View style={ styles.conteiner }>
+                       <View style={ styles.container }>
                        <Image
                          source={{ uri: this.props.picture }}
                          style={ styles.image }
@@ -34,7 +34,7 @@ class PictureRender extends Component {
                        </View>)
                      case false:
                      return (
-                     <View style={ styles.conteiner } >
+                     <View style={ styles.container } >
                        <Image
                          source={require('./images/dummy.png')}
                          style={ styles.image }

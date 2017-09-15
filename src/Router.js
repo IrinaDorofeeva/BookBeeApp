@@ -5,8 +5,9 @@ import ProfileScreen from './screens/ProfileScreen';
 import LoadingScreen from './screens/LoadingScreen';
 import ProfileEditScreen from './screens/ProfileEditScreen';
 import ProfileCreateScreen from './screens/ProfileCreateScreen';
+import BlankScreen from './screens/BlankScreen';
 import PictureTest from './screens/PictureTest';
-import SecondPage from './screens/SecondPage';
+import MapPage from './screens/MapPage';
 import SignupPage from './screens/SignupPage';
 import ResetPage from './screens/ResetPage';
 import { Text, View, Image, StatusBar, KeyboardAvoidingView } from 'react-native';
@@ -89,7 +90,7 @@ render(){
               source={require('./components/images/GlobeShape.png')}
               style={ {width: 30, height : 30} }
             />)} >
-          <Scene key="secondscreen" component={SecondPage} hideNavBar={false}
+          <Scene key="secondscreen" component={MapPage} hideNavBar={false}
           titleStyle={{color: '#fff', fontSize: 20,
           fontWeight: '600', paddingBottom: 2}}
           leftTitle="Logout"
@@ -102,14 +103,14 @@ render(){
               source={require('./components/images/SearchShape.png')}
               style={ {width: 30, height : 30} }
             />)} >
-          <Scene key="thirdscreen" component={SecondPage} hideNavBar={true} />
+          <Scene key="thirdscreen" component={BlankScreen} hideNavBar={true} />
           </Scene>
 
           <Scene key="fourth"  title="chat" icon={()=>(<Image
               source={require('./components/images/MessagesShape.png')}
               style={ {width: 30, height : 30} }
             />)} >
-          <Scene key="fourthscreen" component={SecondPage} hideNavBar={true} />
+          <Scene key="fourthscreen" component={BlankScreen} hideNavBar={true} />
           </Scene>
 
         </Scene>

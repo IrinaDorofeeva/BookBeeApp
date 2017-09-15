@@ -23,3 +23,8 @@ export const PICTURE_SET ='picture_set';
 export const PICTURE_FAIL ='picture_fail';
 export const PICTURE_LOADING ='picture_loading';
 export const PICTURE_FETCH_SUCCESS='picture_fetch_success';
+
+
+export const LOCATION_SET ='location_set';
+export const LOCATION_UPDATE ='location_update';
+export const LOCATION_FETCH_SUCCESS='location_fetch_success';

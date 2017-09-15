@@ -11,6 +11,10 @@ import {Header} from 'react-native-elements'
 import {Dimensions } from 'react-native';
 import MapView from 'react-native-maps';
 
+import {locationSet, locationUpdate} from '../actions';
+import firebase from 'firebase';
+import GeoFire from 'geofire';
+
 const {width, height} = Dimensions.get('window')
 const SCREEN_HEIGHT = height
 const SCREEN_WIDTH = width
@@ -18,7 +22,7 @@ const ASPECT_RATIO= width/ height
 const LATTITUDE_DELTA = 0.0922
 const LONGITUDE_DELTA = LATTITUDE_DELTA * ASPECT_RATIO
 
-class SecondPage extends Component {
+class MapPage extends Component {
 
   constructor(props){
     super(props)
@@ -41,6 +45,7 @@ componentDidMount() {
   navigator.geolocation.getCurrentPosition((position) => {
     var lat = parseFloat(position.coords.latitude)
     var long = parseFloat(position.coords.longitude)
+      this.props.locationSet({ latitude: lat, longitude: long});
     var initialRegion = {
       latitude: lat,
       longitude: long,
@@ -54,6 +59,17 @@ componentDidMount() {
   this.watchID = navigator.geolocation.watchPosition((position)=>{
     var lat = parseFloat(position.coords.latitude)
     var long = parseFloat(position.coords.longitude)
+    this.props.locationUpdate({ latitude: lat, longitude: long});
+    var firebaseRef = firebase.database().ref(`/users_locations`);
+    var geoFire = new GeoFire(firebaseRef);
+    var geoQuery = geoFire.query({
+      center: [lat, long],
+      radius: 10.5
+    });
+
+    var onKeyEnteredRegistration = geoQuery.on("key_entered", function(key, location, distance) {
+  console.log(key + " entered query at " + location + " (" + distance + " km from center)");
+});
     var lastRegion = {
       latitude: lat,
       longitude:long,
@@ -67,6 +83,24 @@ componentDidMount() {
 componentWillUnmount() {
   navigator.geolocation.clearWatch(this.watchID)
 }
+
+renderMarkers() {
+  var firebaseRef = firebase.database().ref(`/users_locations`);
+  var geoFire = new GeoFire(firebaseRef);
+  var geoQuery = geoFire.query({
+    center: [37, -122],
+    radius: 10.5
+  });
+  var onKeyEnteredRegistration = geoQuery.on("key_entered", function(key, location, distance) {
+  return (
+    <MapView.Marker
+    coordinate={location}>
+
+    </MapView.Marker>
+  );
+});
+}
+
 
   render() {
     return (
@@ -83,12 +117,17 @@ componentWillUnmount() {
       < MapView
       style ={styles.map}
       region={this.state.initialPosition}>
+
+
       <MapView.Marker
       coordinate={this.state.initialPosition}>
       <View style={styles.radius}>
       <View style={styles.marker}/>
       </View>
       </MapView.Marker>
+
+      {this.renderMarkers()}
+
       </MapView>
         </View>
     </View>
@@ -132,4 +171,9 @@ map: {
 
 })
 
-  export default SecondPage;
+const mapStateToProps = state => {
+const map = state.map;
+
+  return { map };
+};
+export default connect(mapStateToProps, { locationSet, locationUpdate })(MapPage);

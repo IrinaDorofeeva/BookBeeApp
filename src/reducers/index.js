@@ -3,11 +3,13 @@ import AuthReducer from './AuthReducer';
 import ProfileReducer from './ProfileReducer';
 import PictureReducer from './PictureReducer';
 import ProfileFormReducer from './ProfileFormReducer';
+import MapReducer from './MapReducer';
 
 export default combineReducers({
   auth: AuthReducer,
   profileForm: ProfileFormReducer,
   profile: ProfileReducer,
-  pictureState: PictureReducer
+  pictureState: PictureReducer,
+  map: MapReducer,
 
 });

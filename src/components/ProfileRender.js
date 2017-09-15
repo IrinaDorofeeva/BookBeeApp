@@ -10,7 +10,15 @@ import PictureRender from './PictureRender';
 class ProfileRender extends Component {
 
 
+componentWillMount() {
+  this.props.profileFetch();
+
+
+}
+
     render() {
+
+
       return (
         <ProfileCard>
         <ProfileCardSection style ={{borderBottomWidth: 0}}>
@@ -36,13 +44,13 @@ class ProfileRender extends Component {
         <Text style={ styles.book }>{this.props.profile.book}</Text>
         </ProfileCardSection>
 
-        <ProfileCardSection style ={{borderBottomWidth: 0, marginTop: 15}}>
+        <ProfileCardSection style ={{borderBottomWidth: 0, marginTop: 5}}>
         <Text style={ styles.author }>by {this.props.profile.author} </Text>
         </ProfileCardSection>
 
 
-        <ProfileCardSection style ={{borderBottomWidth: 0}}>
-        <Text style={ styles.genre }>{this.props.profile.genre}</Text>
+        <ProfileCardSection style ={{borderBottomWidth: 0, marginTop: 45}}>
+        <Text style={ styles.genre }>genre: {this.props.profile.genre}</Text>
         </ProfileCardSection>
 
         <ProfileCardSection style ={{borderBottomWidth: 2}}>
@@ -89,7 +97,7 @@ class ProfileRender extends Component {
     author: {
       flex: 1,
       fontSize: 18,
-      fontWeight: '700',
+      fontWeight: '400',
       fontStyle: 'italic',
       textAlign: 'center',
       color: '#6a6a6a'
@@ -98,8 +106,8 @@ class ProfileRender extends Component {
 
     genre: {
       flex: 1,
-      fontSize: 15,
-      fontWeight: '500',
+      fontSize: 13,
+      fontWeight: '300',
       textAlign: 'center',
       color: '#dfa553'
     },

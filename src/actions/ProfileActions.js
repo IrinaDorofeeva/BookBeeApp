@@ -14,8 +14,6 @@ export const profileUpdate = ({ prop, value }) => {
   };
 };
 
-
-
 export const profileSet = ({ name, book, author, genre, about }) => {
   const { currentUser } = firebase.auth();
 
