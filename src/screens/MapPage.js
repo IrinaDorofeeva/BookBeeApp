@@ -40,6 +40,7 @@ class MapPage extends Component {
     }
   }
 
+
 watchID: ?number = null
 componentDidMount() {
   navigator.geolocation.getCurrentPosition((position) => {
@@ -60,16 +61,6 @@ componentDidMount() {
     var lat = parseFloat(position.coords.latitude)
     var long = parseFloat(position.coords.longitude)
     this.props.locationUpdate({ latitude: lat, longitude: long});
-    var firebaseRef = firebase.database().ref(`/users_locations`);
-    var geoFire = new GeoFire(firebaseRef);
-    var geoQuery = geoFire.query({
-      center: [lat, long],
-      radius: 10.5
-    });
-
-    var onKeyEnteredRegistration = geoQuery.on("key_entered", function(key, location, distance) {
-  console.log(key + " entered query at " + location + " (" + distance + " km from center)");
-});
     var lastRegion = {
       latitude: lat,
       longitude:long,
@@ -84,21 +75,26 @@ componentWillUnmount() {
   navigator.geolocation.clearWatch(this.watchID)
 }
 
-renderMarkers() {
+otherMarkers() {
   var firebaseRef = firebase.database().ref(`/users_locations`);
   var geoFire = new GeoFire(firebaseRef);
   var geoQuery = geoFire.query({
-    center: [37, -122],
-    radius: 10.5
+    center: [this.state.initialPosition.latitude, this.state.initialPosition.longitude],
+    radius: (this.state.initialPosition.latitudeDelta)*100
   });
-  var onKeyEnteredRegistration = geoQuery.on("key_entered", function(key, location, distance) {
-  return (
-    <MapView.Marker
-    coordinate={location}>
+  var markers = [];
 
-    </MapView.Marker>
-  );
+  console.log(this.state.initialPosition.latitude + " " + this.state.initialPosition.longitude);
+
+  var onKeyEnteredRegistration = geoQuery.on("key_entered", function(key, location, distance) {
+    var marker = {key: 0, location: 0};
+    marker.key = key;
+    marker.location= location;
+    markers.push(marker);
+    console.log("GeoQuery has loaded and fired all other events for initial data");
+    console.log(key + " entered query at " + location + " (" + distance + " km from center)");
 });
+return markers;
 }
 
 
@@ -116,18 +112,30 @@ renderMarkers() {
       <View style = {styles.container}>
       < MapView
       style ={styles.map}
-      region={this.state.initialPosition}>
+      region={this.state.initialPosition}
+      onRegionChange={ initialPosition => this.setState({initialPosition}) }
+      onRegionChangeComplete={ initialPosition => this.setState({initialPosition}) }
+      >
 
+      {this.otherMarkers().map(function(object) {
+        return (
+
+          <MapView.Marker
+          coordinate={{
+            latitude: object.location[0],
+            longitude:object.location[1]
+          }}>
+          <View style={styles.markers}/>
+          </MapView.Marker>
+        );})
+      }
 
       <MapView.Marker
-      coordinate={this.state.initialPosition}>
-      <View style={styles.radius}>
-      <View style={styles.marker}/>
-      </View>
-      </MapView.Marker>
-
-      {this.renderMarkers()}
-
+    coordinate={this.state.initialPosition}>
+    <View style={styles.radius}>
+    <View style={styles.marker}/>
+    </View>
+    </MapView.Marker>
       </MapView>
         </View>
     </View>
@@ -147,13 +155,23 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   marker: {
-    height:20,
-    width:20,
+    height:10,
+    width:10,
     borderWidth:3,
     borderColor: 'white',
     borderRadius: 20/2,
     overflow: 'hidden',
     backgroundColor: '#007AFF'
+  },
+
+  markers: {
+    height:20,
+    width:20,
+    borderWidth:4,
+    borderColor: 'red',
+    borderRadius: 20/2,
+    overflow: 'hidden',
+    backgroundColor: 'green'
   },
 container: {
   flex: 1,
