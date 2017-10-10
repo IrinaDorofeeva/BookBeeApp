@@ -10,6 +10,7 @@ import PictureTest from './screens/PictureTest';
 import MapPage from './screens/MapPage';
 import SignupPage from './screens/SignupPage';
 import ResetPage from './screens/ResetPage';
+import SearchPage from './screens/SearchPage';
 import { Text, View, Image, StatusBar, KeyboardAvoidingView } from 'react-native';
 import Icon from 'react-native-vector-icons/Octicons';
 import Tabs from 'react-native-tabs';
@@ -103,14 +104,28 @@ render(){
               source={require('./components/images/SearchShape.png')}
               style={ {width: 30, height : 30} }
             />)} >
-          <Scene key="thirdscreen" component={BlankScreen} hideNavBar={true} />
+          <Scene key="thirdscreen" component={SearchPage} hideNavBar={false}
+          titleStyle={{color: '#fff', fontSize: 20,
+          fontWeight: '600', paddingBottom: 2}}
+          leftTitle="Logout"
+          leftButtonTextStyle={{color: '#f0d6ad',fontSize: 18, fontWeight: '600'}}
+          onLeft={()=>{this.props.logout()}}
+          title="Search Readers" navigationBarStyle={{backgroundColor: '#e0a64b'}}
+          />
           </Scene>
 
           <Scene key="fourth"  title="chat" icon={()=>(<Image
               source={require('./components/images/MessagesShape.png')}
               style={ {width: 30, height : 30} }
             />)} >
-          <Scene key="fourthscreen" component={BlankScreen} hideNavBar={true} />
+          <Scene key="fourthscreen" component={BlankScreen} hideNavBar={false}
+          titleStyle={{color: '#fff', fontSize: 20,
+          fontWeight: '600', paddingBottom: 2}}
+          leftTitle="Logout"
+          leftButtonTextStyle={{color: '#f0d6ad',fontSize: 18, fontWeight: '600'}}
+          onLeft={()=>{this.props.logout()}}
+          title="Chat with Readers" navigationBarStyle={{backgroundColor: '#e0a64b'}}
+          />
           </Scene>
 
         </Scene>

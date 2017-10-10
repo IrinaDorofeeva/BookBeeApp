@@ -29,19 +29,14 @@ class ProfileSetForm extends Component {
       <PictureChangeButton />
       </View>
       </ProfileCardSection>
-
       <ProfileForm {...this.props} />
-
       <CardSection style={{borderBottomWidth: 0, marginTop: 10, marginLeft: 25, marginRight: 25, flex: 1,
       justifyContent:'flex-end' }}>
       <ButtonProfile onPress={this.onButtonPress.bind(this)}>
       Save
       </ButtonProfile>
       </CardSection>
-
       </ProfileCard>
-
-
     );
   }
 }

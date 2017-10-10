@@ -9,5 +9,8 @@ export * from './ProfileCardSection';
 export * from './Header';
 export * from './Input';
 export * from './InputProfile';
+export * from './InputSearch';
 export * from './Spinner';
 export * from './Confirm';
+export * from './ChatButton';
+export * from './SearchCardSection';

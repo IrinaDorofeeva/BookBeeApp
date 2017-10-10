@@ -27,6 +27,7 @@ const styles = {
     paddingBottom: 10,
   },
   buttonStyle: {
+    
     backgroundColor: '#e0a64b',
     borderRadius: 25,
     borderWidth: 1,

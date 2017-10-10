@@ -55,10 +55,10 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   image: {
-    height: 120,
-    width: 120,
+    height: 170,
+    width: 170,
     resizeMode: 'cover',
-    borderRadius: 60,
+    borderRadius: 85,
     marginBottom: 5,
     marginTop: 5
 }

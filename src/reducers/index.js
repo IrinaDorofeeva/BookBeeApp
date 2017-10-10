@@ -4,6 +4,7 @@ import ProfileReducer from './ProfileReducer';
 import PictureReducer from './PictureReducer';
 import ProfileFormReducer from './ProfileFormReducer';
 import MapReducer from './MapReducer';
+import SearchReducer from './SearchReducer';
 
 export default combineReducers({
   auth: AuthReducer,
@@ -11,5 +12,5 @@ export default combineReducers({
   profile: ProfileReducer,
   pictureState: PictureReducer,
   map: MapReducer,
-
+  search: SearchReducer
 });

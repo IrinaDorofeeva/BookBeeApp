@@ -43,3 +43,21 @@ else {
     });
   };
 };
+
+
+export const otherProfileFetch = ({key}) => {
+
+  return (dispatch) => {
+    dispatch({ type: PROFILE_LOADING });
+    firebase.database().ref(`/users/${key}/profile`)
+    .on('value', snapshot => {
+      dispatch({ type: PROFILE_FETCH_SUCCESS, payload: snapshot.val() });
+if (!snapshot.exists()){
+
+}
+else {
+
+}
+    });
+  };
+};

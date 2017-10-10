@@ -28,3 +28,10 @@ export const PICTURE_FETCH_SUCCESS='picture_fetch_success';
 export const LOCATION_SET ='location_set';
 export const LOCATION_UPDATE ='location_update';
 export const LOCATION_FETCH_SUCCESS='location_fetch_success';
+
+
+export const SEARCH_TEXT_CHANGED = 'search_text_changed';
+export const SEARCH_SUCCESS = 'search_success';
+export const SEARCH_FAIL = 'search_fail';
+export const SEARCH_STARTS = 'search_starts';
+export const EMPTY_SEARCH = 'empty_search';
