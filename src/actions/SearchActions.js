@@ -24,40 +24,60 @@ export const searchStarts = (text) => {
 
                    firebase.database().ref('users_books').orderByChild('book').startAt(text.searchText)
                    .endAt(text.searchText +"\uf8ff").on('child_added', function(snap){
-                     console.log('book found');
-                     console.log(snap.val());
-                     var profile =[];
-                     firebase.database().ref(`/users/${snap.key}/profile`)
-                     .on('value', snapshot => {
-                     if (snapshot.exists()){
-                     var value = snapshot.val();
-                     profile.book = value.book;
-                     profile.name = value.name;
-                     profile.author = value.author;
-                     firebase.database().ref(`/users_search/${currentUser.uid}/`)
-                     .push(profile).then(() => {  console.log('found user profile pushed');});
-                     }
-                     else {}
-                     });
-                     });
 
-                  /*  firebase.database().ref('users_authors').orderByChild('author').startAt(text.searchText)
+                     firebase.database().ref(`/users_search/${currentUser.uid}/`)
+                     .push(snap.key).then(() => {  console.log('key for book found pushed');});
+                   });
+
+                    firebase.database().ref('users_authors').orderByChild('author').startAt(text.searchText)
                    .endAt(text.searchText +"\uf8ff").on('child_added', function(snap){
 
                      firebase.database().ref(`/users_search/${currentUser.uid}/`)
-                     .push(snap.key).then(() => {});
+                     .push(snap.key).then(() => {console.log('key for author found pushed');});
                                              });
 
                     firebase.database().ref('users_genres').orderByChild('genre').startAt(text.searchText)
                     .endAt(text.searchText +"\uf8ff").on('child_added', function(snap){
 
                       firebase.database().ref(`/users_search/${currentUser.uid}/`)
-                      .push(snap.key).then(() => {});
+                      .push(snap.key).then(() => {console.log('key for genre found pushed');});
 
-                    });*/
-                    dispatch({ type: SEARCH_SUCCESS });
-};
-};
+                    });
+
+
+                    firebase.database().ref(`/users_search/${currentUser.uid}/`).on('value', snap => {
+                          const uids = [];
+                          snap.forEach(uid => {
+                              const u = uid.val();
+                              uids.push({
+                                  _id: uid.key,
+                              });
+                          });
+
+                          /**
+                          firebase.database().ref(`/users/${key}/profile`)
+                          .on('value', snapshot => {
+                          if (snapshot.exists()){
+                          var value = snapshot.val();
+                          marker.book = value.book;
+                          marker.name = value.name;
+                          marker.author = value.author;
+                          }
+                          else {
+                          }
+                        });*/
+
+
+
+                          dispatch({ type: SEARCH_SUCCESS,
+                            payload: uids });
+                            });
+                  };
+                };
+
+
+
+
 
 const searchFail = (dispatch) => {
   dispatch({ type: SEARCH_FAIL });

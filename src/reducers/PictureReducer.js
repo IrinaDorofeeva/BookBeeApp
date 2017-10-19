@@ -14,8 +14,6 @@ const INITIAL_STATE = {
 };
 
 export default (state = INITIAL_STATE, action) => {
-console.log('picture action');
-console.log(action);
 switch (action.type) {
   case PICTURE_FETCH_SUCCESS:
   return {  loading: false, picture: action.payload.picture, uploaded: true};
