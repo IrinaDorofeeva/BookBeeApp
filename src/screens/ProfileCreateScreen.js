@@ -20,7 +20,7 @@ class ProfileCreateScreen extends Component {
     return (
       <KeyboardAwareScrollView style={{backgroundColor: '#fff', flex: 1}} resetScrollToCoords={{ x: 0, y: 0 }}
       scrollEnabled={true} automaticallyAdjustContentInsets={false}>
-      <Text>Create Profile</Text>
+    //  <Text>Create Profile</Text>
       <View >
       <ProfileSetForm />
       </View>

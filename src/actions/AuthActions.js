@@ -54,7 +54,20 @@ const loginUserSuccess = (dispatch, user) => {
     type: LOGIN_USER_SUCCESS,
     payload: user
   });
-  Actions.first();
+
+
+firebase.database().ref(`/users/${user.uid}/profile`)
+.on('value', snapshot => {
+if (!snapshot.exists()){
+Actions.profilecreate();
+}
+else {
+Actions.profile();
+}
+});
+
+
+
 };
 
 export const signupUser = ({ email, password, repassword }) => {

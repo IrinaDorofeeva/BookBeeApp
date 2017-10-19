@@ -9,6 +9,8 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 class SearchPage extends Component {
 
 
+
+
   render() {
     return (
 

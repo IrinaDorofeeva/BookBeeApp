@@ -75,8 +75,8 @@ componentWillMount() {
     now: {
       flex: 1,
       fontSize: 15,
-
-      fontWeight: '500',
+      fontStyle: 'italic',
+      fontWeight: '400',
       textAlign: 'center',
       color: '#9b9b9b'
     },
@@ -92,7 +92,7 @@ componentWillMount() {
     author: {
       flex: 1,
       fontSize: 17,
-      fontWeight: '400',
+      fontWeight: '500',
       fontStyle: 'italic',
       textAlign: 'center',
       color: '#9b9b9b'

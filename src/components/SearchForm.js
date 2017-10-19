@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
+import firebase from 'firebase';
 import { connect } from 'react-redux';
-import { Text } from 'react-native';
+import { Text, View } from 'react-native';
 import { ProfileCard, ProfileCardSection, SearchCardSection, InputSearch, ChatButton, Spinner } from './common';
-import { searchTextChanged, searchStarts } from '../actions';
+import { searchTextChanged, searchStarts, emptySearch } from '../actions';
 
 class SearchForm extends Component {
 
+
+  componentWillMount() {
+    this.props.emptySearch();
+  }
 
   onSearchTextChange(text) {
     this.props.searchTextChanged(text);
@@ -27,9 +32,27 @@ class SearchForm extends Component {
     );
   }
 
+  renderSearchResults() {
+    const { currentUser } = firebase.auth();
+    var ReadersViews = [];
+      if(currentUser){
+
+        firebase.database().ref(`/users_search/${currentUser.uid}`)
+        .on('value', snapshot => {
+
+if(snapshot.exists()){
+      console.log('**results**');
+      console.log(Object.values(snapshot.val()));
+      ReadersViews = Object.values(snapshot.val());
+}
+  } );
+}
+return ReadersViews;
+}
 
   render() {
     return (
+      <View>
       <ProfileCard>
       <ProfileCardSection>
       <InputSearch
@@ -48,7 +71,12 @@ class SearchForm extends Component {
       <SearchCardSection style={{backgroundColor: '#fff', paddingTop: 10, borderWidth: 0}}>
       {this.renderButton()}
       </SearchCardSection>
+
       </ProfileCard>
+
+  
+      </View>
+
     );
   }
 }
@@ -74,4 +102,4 @@ const mapStateToProps = ({ search }) => {
   const { searchText, error, loading } = search;
   return { searchText, error, loading };
 };
-export default connect(mapStateToProps, { searchTextChanged, searchStarts })(SearchForm);
+export default connect(mapStateToProps, { searchTextChanged, searchStarts, emptySearch })(SearchForm);

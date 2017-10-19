@@ -72,11 +72,14 @@ componentDidMount() {
   })
 }
 componentWillUnmount() {
-  navigator.geolocation.clearWatch(this.watchID)
+  navigator.geolocation.clearWatch(this.watchID);
+  geoQuery.cancel();
 }
 
 otherMarkers() {
-  const { currentUser } = firebase.auth();
+const { currentUser } = firebase.auth();
+
+
   var firebaseRef = firebase.database().ref(`/users_locations`);
   var geoFire = new GeoFire(firebaseRef);
   var geoQuery = geoFire.query({
@@ -85,7 +88,7 @@ otherMarkers() {
   });
   var markers = [];
 
-  console.log(this.state.initialPosition.latitude + " " + this.state.initialPosition.longitude);
+  if(currentUser){
 
   var onKeyEnteredRegistration = geoQuery.on("key_entered", function(key, location, distance) {
     var marker = {key: 0, location: 0};
@@ -103,10 +106,12 @@ otherMarkers() {
     else {
     }
     });
+
     if(key!=currentUser.uid){
     markers.push(marker);
   }
 });
+}
 return markers;
 }
 
@@ -143,8 +148,8 @@ return markers;
           coordinate={{
             latitude: object.location[0],
             longitude:object.location[1]
-          }}
-          >
+          }}>
+
           <View style={styles.markers}/>
 
           <MapView.Callout style={{ width: 100 }} >
@@ -154,19 +159,14 @@ return markers;
                         <Text style={ styles.book }>{object.book}</Text>
                         <Text style={ styles.by }>by</Text>
                         <Text style={ styles.author }>{object.author}</Text>
-
                         <ChatButton>Chat</ChatButton>
-
-          						</View>
-
-          				</MapView.Callout>
-
-
+          						  </View>
+          </MapView.Callout>
           </MapView.Marker>
         );})
       }
 
-      <MapView.Marker
+    <MapView.Marker
     coordinate={this.state.initialPosition}>
     <View style={styles.marker}/>
     </MapView.Marker>

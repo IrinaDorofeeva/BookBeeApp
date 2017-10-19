@@ -7,6 +7,7 @@ import { SEARCH_TEXT_CHANGED,
 
 const INITIAL_STATE = {
   searchText: '',
+  searchResult: null
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -15,13 +16,13 @@ export default (state = INITIAL_STATE, action) => {
     case SEARCH_TEXT_CHANGED:
     return { ...state, searchText: action.payload, error: '' };
     case SEARCH_SUCCESS:
-    return { ...state, user: action.payload, error: '', loading: false };
+    return { ...state, searchResult: action.payload, error: '', loading: false };
     case SEARCH_FAIL:
-    return { ...state, error: 'Login failed. No user with this email or password.', password: '', loading: false };
+    return { ...state, error: 'Search failed. No user reading this book, topic or author.', loading: false };
     case SEARCH_STARTS:
     return { ...state, loading: true, error: '' };
     case EMPTY_SEARCH:
-    return { ...state, error: '', email:'', password: '',repassword: '', loading: false };
+    return { ...state, error: '', searchResult: null, loading: false };
     default:
     return state;
   }

@@ -18,6 +18,25 @@ export const profileSet = ({ name, book, author, genre, about }) => {
   const { currentUser } = firebase.auth();
 
   return (dispatch) => {
+
+
+    firebase.database().ref(`/users_books/${currentUser.uid}/`)
+    .set({book})
+    .then(() => {
+      dispatch({ type: PROFILE_UPDATE });
+    });
+    firebase.database().ref(`/users_authors/${currentUser.uid}/`)
+    .set({author})
+    .then(() => {
+      dispatch({ type: PROFILE_UPDATE });
+    });
+    firebase.database().ref(`/users_genres/${currentUser.uid}/`)
+    .set({genre})
+    .then(() => {
+      dispatch({ type: PROFILE_UPDATE });
+    });
+
+
     firebase.database().ref(`/users/${currentUser.uid}/profile`)
     .set({ name, book, author, genre, about })
     .then(() => {
@@ -33,7 +52,7 @@ export const profileFetch = () => {
     dispatch({ type: PROFILE_LOADING });
     firebase.database().ref(`/users/${currentUser.uid}/profile`)
     .on('value', snapshot => {
-      dispatch({ type: PROFILE_FETCH_SUCCESS, payload: snapshot.val() });
+      dispatch({ type: PROFILE_FETCH_SUCCESS, payload: snapshot.val()});
 if (!snapshot.exists()){
   Actions.profilecreate();
 }
@@ -46,7 +65,6 @@ else {
 
 
 export const otherProfileFetch = ({key}) => {
-
   return (dispatch) => {
     dispatch({ type: PROFILE_LOADING });
     firebase.database().ref(`/users/${key}/profile`)
