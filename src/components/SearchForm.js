@@ -80,7 +80,8 @@ class SearchForm extends Component {
 
       <SearchCardSection style={{backgroundColor: '#fff', paddingTop: 10, borderWidth: 0}}>
 
-      <Text> some </Text>
+    
+      {this.renderSearchResults()}
 
       </SearchCardSection>
 
@@ -90,21 +91,6 @@ class SearchForm extends Component {
       </View>
 
     );
-
-    if(this.props.searchResult){
-
-  this.props.searchResult.map((data) => {
-   return (
-     <View><Text>{data.book}</Text></View>
-   )
- })
- }
-
-
-
-
-
-
   }
 }
 
@@ -126,7 +112,7 @@ const styles = {
 
 
 const mapStateToProps = ({ search }) => {
-  const { searchText, searchResult, error, loading } = search;
-  return { searchText, searchResult, error, loading };
+  const { searchText, searchResult, searchSuccess, error, loading } = search;
+  return { searchText, searchResult, searchSuccess, error, loading };
 };
 export default connect(mapStateToProps, { searchTextChanged, searchStarts, emptySearch })(SearchForm);
