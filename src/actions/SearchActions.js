@@ -49,9 +49,23 @@ export const searchStarts = (text) => {
                           const uids = [];
                           snap.forEach(uid => {
                               const u = uid.val();
+
+                              firebase.database().ref(`/users/${u}/profile`)
+                              .on('value', snapshot => {
+                              if (snapshot.exists()){
+                              var value = snapshot.val();
                               uids.push({
-                                  _id: uid.key,
+                                  _id: u,
+                                  book: value.book,
+                                  author: value.author,
+                                  name: value.name
                               });
+
+                              }
+                              else {
+                              }
+                            });
+
                           });
 
                           /**

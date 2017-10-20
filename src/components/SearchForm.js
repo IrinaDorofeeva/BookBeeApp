@@ -32,25 +32,31 @@ class SearchForm extends Component {
     );
   }
 
-  renderSearchResults() {
-    const { currentUser } = firebase.auth();
-    var ReadersViews = [];
-      if(currentUser){
 
-        firebase.database().ref(`/users_search/${currentUser.uid}`)
-        .on('value', snapshot => {
 
-if(snapshot.exists()){
-      console.log('**results**');
-      console.log(Object.values(snapshot.val()));
-      ReadersViews = Object.values(snapshot.val());
+ renderSearchResults() {
+   var uids =[];
+   uids = this.props.searchResult;
+   if(uids){
+  return uids.map(function(reader, i){
+    return(
+      <View key={i}>
+        <Text>{reader.name}</Text>
+        <View>
+          <Text>{reader.book}</Text>
+        </View>
+      </View>
+    );
+  });
 }
-  } );
 }
-return ReadersViews;
-}
+
+
+
 
   render() {
+
+
     return (
       <View>
       <ProfileCard>
@@ -72,12 +78,33 @@ return ReadersViews;
       {this.renderButton()}
       </SearchCardSection>
 
+      <SearchCardSection style={{backgroundColor: '#fff', paddingTop: 10, borderWidth: 0}}>
+
+      <Text> some </Text>
+
+      </SearchCardSection>
+
       </ProfileCard>
 
-  
+
       </View>
 
     );
+
+    if(this.props.searchResult){
+
+  this.props.searchResult.map((data) => {
+   return (
+     <View><Text>{data.book}</Text></View>
+   )
+ })
+ }
+
+
+
+
+
+
   }
 }
 
@@ -99,7 +126,7 @@ const styles = {
 
 
 const mapStateToProps = ({ search }) => {
-  const { searchText, error, loading } = search;
-  return { searchText, error, loading };
+  const { searchText, searchResult, error, loading } = search;
+  return { searchText, searchResult, error, loading };
 };
 export default connect(mapStateToProps, { searchTextChanged, searchStarts, emptySearch })(SearchForm);
